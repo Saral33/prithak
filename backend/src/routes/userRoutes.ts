@@ -1,3 +1,4 @@
+import { UserController } from '@/controllers/userController';
 import { Router } from 'express';
 
 class UserRoutes {
@@ -8,6 +9,9 @@ class UserRoutes {
   }
 
   public routes(): Router {
+    this.router.post('/register', UserController.prototype.registerUser);
+    this.router.post('/login', UserController.prototype.loginUser);
+    this.router.post('/refresh', UserController.prototype.refresh);
     return this.router;
   }
 }

@@ -1,0 +1,82 @@
+import { BadRequestError } from '@/middleware/errorMiddleware';
+import { AuthNodal } from '@/model/authModel';
+import { UserModel } from '@/model/userModel';
+import Utils from '@/utils/globalUtils';
+
+class UserRepository {
+  public async Register({
+    email,
+    name,
+    password,
+  }: {
+    email: string;
+    name: string;
+    password: string;
+  }) {
+    const isUserExists = await UserModel.findOne({ email });
+    if (isUserExists) {
+      throw new BadRequestError('User already exists with this email');
+    } else {
+      const user = await UserModel.create({
+        name,
+        email,
+        password,
+        role: 'user',
+      });
+      return user;
+    }
+  }
+  public async Login({ email, password }: { email: string; password: string }) {
+    const user = await UserModel.findOne({ email });
+    if (user) {
+      const isPasswordMatch = await user.comparePassword(password);
+      if (isPasswordMatch) {
+        return user;
+      } else {
+        throw new BadRequestError('Invalid credentials');
+      }
+    } else {
+      throw new BadRequestError('Invalid credentials');
+    }
+  }
+
+  public async SaveRefreshToken({
+    refreshToken,
+    userId,
+    expiryDate,
+  }: {
+    refreshToken: string;
+    userId: string;
+    expiryDate: Date;
+  }) {
+    const userWithToken = await AuthNodal.findOne({ userId });
+
+    if (!userWithToken) {
+      await AuthNodal.create<typeof AuthNodal>({
+        refreshToken,
+        userId,
+        expiryDate,
+      });
+    } else {
+      userWithToken.refreshToken = refreshToken;
+      userWithToken.expiryDate = expiryDate;
+      await userWithToken.save();
+    }
+  }
+
+  public async FindByRefreshToken(refreshToken: string) {
+    const user = await AuthNodal.findOne({ refreshToken });
+    if (user) {
+      const isTokenExpired = Utils.checkRefreshTokenExpiry(user.expiryDate);
+      if (isTokenExpired) {
+        throw new BadRequestError('Refresh token expired.Please login again');
+      }
+      return user;
+    } else {
+      throw new BadRequestError('Invalid refresh token');
+    }
+  }
+}
+
+const UserRepositoryInstance = new UserRepository();
+export { UserRepositoryInstance };

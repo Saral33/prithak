@@ -27,6 +27,14 @@ export abstract class CustomError extends Error {
   }
 }
 
+export class NotAuthorizedError extends CustomError {
+  statusCode = HTTP_STATUS.UNAUTHORIZED;
+  status = 'error';
+
+  constructor(message: string) {
+    super(message);
+  }
+}
 export class JoiRequestValidationError extends CustomError {
   statusCode = HTTP_STATUS.BAD_REQUEST;
   status = 'error';
@@ -47,15 +55,6 @@ export class BadRequestError extends CustomError {
 
 export class NotFoundError extends CustomError {
   statusCode = HTTP_STATUS.NOT_FOUND;
-  status = 'error';
-
-  constructor(message: string) {
-    super(message);
-  }
-}
-
-export class NotAuthorizedError extends CustomError {
-  statusCode = HTTP_STATUS.UNAUTHORIZED;
   status = 'error';
 
   constructor(message: string) {

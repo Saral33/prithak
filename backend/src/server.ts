@@ -6,12 +6,21 @@ import { connectDB } from '@/settings/dbSettings';
 import 'express-async-errors';
 import { StatusCodes } from 'http-status-codes';
 import { CustomError, IErrorResponse } from './middleware/errorMiddleware';
+import { rateLimit } from 'express-rate-limit';
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 class Server {
   public app: express.Application;
   constructor() {
     this.app = express();
-    this.app.use(express.json());
+    this.app.use(express.json({ limit: '1mb' }));
+    this.app.use(limiter);
     this.app.use(
       cors({
         origin: '*',

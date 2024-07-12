@@ -17,6 +17,7 @@ export interface IUserInterface extends Partial<Document> {
   role: string;
   comparePassword(password: string): Promise<boolean>;
   hashPassword(password: string): Promise<string>;
+  tasks: ObjectId[];
 }
 
 export interface IAuthInterface extends Partial<Document> {

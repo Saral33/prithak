@@ -56,7 +56,10 @@ export class UserController {
     }
   }
 
-  public async refresh(req: Request, res: Response) {
+  public async refresh(
+    req: Request<{}, {}, { refreshToken: string }>,
+    res: Response
+  ) {
     const { refreshToken } = req.body;
     if (!refreshToken) throw new BadRequestError('Refresh token is required');
     const user = await UserRepositoryInstance.FindByRefreshToken(refreshToken);
@@ -79,8 +82,6 @@ export class UserController {
           refreshToken: newRefreshToken,
         },
       });
-    } else {
-      throw new BadRequestError('Some internal error');
     }
   }
 }

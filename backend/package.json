@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "npx nodemon",
     "build": "rimraf ./build && tsc && tsc-alias",
-    "start:prod": "npm run build && node --env-file=.env build/src/server.js"
+    "start:prod": "npm run build && node --env-file=.env build/src/server.js",
+    "run:seed": "ts-node-dev -r tsconfig-paths/register  src/seeder.ts"
   },
   "keywords": [],
   "author": "",

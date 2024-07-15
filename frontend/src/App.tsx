@@ -1,8 +1,11 @@
+import MainRoutes from '@/routes/mainRoutes';
+import { BrowserRouter } from 'react-router-dom';
+
 function App() {
   return (
-    <>
-      <div className="text-red-400">Hi</div>
-    </>
+    <BrowserRouter>
+      <MainRoutes />
+    </BrowserRouter>
   );
 }
 

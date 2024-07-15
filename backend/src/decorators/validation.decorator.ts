@@ -7,7 +7,7 @@ type IJoiDecorator = (
   key: string,
   descriptor: PropertyDescriptor
 ) => void;
-//Decorator is Used to validate
+
 //Decorator is just like higher order function but syntx sugar
 export const joiValidator = (schema: ObjectSchema): IJoiDecorator => {
   //Key gives name of method in which decorator is used, descriptor gives information about method and it's properties

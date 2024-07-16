@@ -10,8 +10,9 @@ const Button: React.FC<ButtonProps> = ({
   className,
   ...rest
 }) => {
-  const baseClasses = 'px-4 py-2 rounded-md font-semibold focus:outline-none';
-  let buttonClasses = baseClasses;
+  const baseClassOfButton =
+    'px-4 py-2 rounded-md font-semibold focus:outline-none';
+  let buttonClasses = baseClassOfButton;
 
   if (className) {
     buttonClasses += ` ${className}`;

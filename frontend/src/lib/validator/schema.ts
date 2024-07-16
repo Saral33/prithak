@@ -25,3 +25,14 @@ export const registerSchema: ZodType<{
     message: 'Password and confirm password do not match',
     path: ['confirmPassword'],
   });
+
+export const loginSchema: ZodType<{
+  email: string;
+  password: string;
+}> = z.object({
+  email: z.string().email({ message: 'Email must be valid' }),
+  password: z
+    .string()
+    .min(8, { message: 'Password must be at least 8 characters long' })
+    .max(20, { message: 'Password must be less than 20 characters long' }),
+});

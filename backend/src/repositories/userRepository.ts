@@ -1,3 +1,4 @@
+import { IUserInterface } from '@/interfaces/user.interface';
 import { BadRequestError } from '@/middleware/errorMiddleware';
 import { AuthNodal } from '@/model/authModel';
 import { UserModel } from '@/model/userModel';
@@ -65,7 +66,10 @@ class UserRepository {
   }
 
   public async FindByRefreshToken(refreshToken: string) {
-    const user = await AuthNodal.findOne({ refreshToken });
+    const user = await AuthNodal.findOne({ refreshToken }).populate<{
+      userId: IUserInterface;
+    }>('userId', ['name', 'email', 'role', 'id']);
+
     if (user) {
       const isTokenExpired = Utils.checkRefreshTokenExpiry(user.expiryDate);
       if (isTokenExpired) {
@@ -74,6 +78,28 @@ class UserRepository {
       return user;
     } else {
       throw new BadRequestError('Invalid refresh token');
+    }
+  }
+
+  public async Logout(userId: string) {
+    const user = await AuthNodal.findOne({ userId });
+    if (user) {
+      user.refreshToken = '';
+      await user.save();
+      return user;
+    } else {
+      throw new BadRequestError('User not found');
+    }
+  }
+
+  public async FindById(id: string) {
+    const user = await UserModel.findOne({ _id: id }).select(
+      '-createdAt -updatedAt'
+    );
+    if (user) {
+      return user;
+    } else {
+      throw new BadRequestError('User not found');
     }
   }
 }

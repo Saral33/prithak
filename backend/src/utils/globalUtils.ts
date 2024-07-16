@@ -13,7 +13,7 @@ class Utils {
   }
   static async generateAccessToken(user: { id: string }) {
     const jwtToken = await Jwt.sign({ id: user.id }, config.JWT_SECRET, {
-      expiresIn: '1d',
+      expiresIn: '10m',
     });
 
     return jwtToken;

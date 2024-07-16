@@ -15,4 +15,13 @@ const nonAuthRoutes = [
   },
 ];
 
-export { nonAuthRoutes };
+const authRoutes = [
+  {
+    id: '3',
+    path: '/dashboard',
+    component: React.lazy(() => import('@/pages/DashboardPage/index')),
+    name: 'DashboardPage',
+  },
+];
+
+export { nonAuthRoutes, authRoutes };

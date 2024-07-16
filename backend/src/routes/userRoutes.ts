@@ -1,4 +1,5 @@
 import { UserController } from '@/controllers/userController';
+import { checkAuthMiddleware } from '@/middleware/authMiddleware';
 import { Router } from 'express';
 
 class UserRoutes {
@@ -12,6 +13,12 @@ class UserRoutes {
     this.router.post('/register', UserController.prototype.registerUser);
     this.router.post('/login', UserController.prototype.loginUser);
     this.router.post('/refresh', UserController.prototype.refresh);
+    this.router.post(
+      '/logout',
+      checkAuthMiddleware,
+      UserController.prototype.logout
+    );
+    this.router.get('/me', checkAuthMiddleware, UserController.prototype.me);
     return this.router;
   }
 }

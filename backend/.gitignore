@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 build
+.env
+*.env
+*.env.example
+*.env.local
+*.env.staging
 
 # Editor directories and files
 .vscode/*
@@ -23,3 +28,4 @@ build
 *.njsproj
 *.sln
 *.sw?
+

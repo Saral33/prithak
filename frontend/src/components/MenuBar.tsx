@@ -34,9 +34,9 @@ const MenuBar = () => {
   };
   const menuExpression = auth?.role === 'user' ? userMenu : adminMenu;
   return (
-    <div className="bg-[#f5f5f5] shadow-md h-full w-[250px]">
-      <div className="p-5">
-        <h1 className="text-3xl text-center">Menu</h1>
+    <div className="bg-[#f5f5f5] shadow-md h-full fixed w-[50px] md:w-[250px] ">
+      <div className="  p-1 md:p-5">
+        <h1 className="text-base md:text-3xl text-center">Menu</h1>
 
         <ul className="mt-10 space-y-4">
           {menuExpression.map((menu) => (
@@ -44,7 +44,7 @@ const MenuBar = () => {
               <Link className="flex gap-3   p-2" to={menu.path}>
                 <Icons name={menu.icon} />{' '}
                 <span
-                  className={`${
+                  className={` hidden md:block ${
                     router.pathname === menu.path ? 'text-blue-500' : ''
                   }`}
                 >
@@ -58,7 +58,8 @@ const MenuBar = () => {
             className="mb-2 cursor-pointer hover:bg-slate-200"
           >
             <p className="flex gap-3  p-2">
-              <Icons name={'Logout'} /> <span>Logout</span>
+              <Icons name={'Logout'} />{' '}
+              <span className="hidden md:block">Logout</span>
             </p>
           </li>
         </ul>

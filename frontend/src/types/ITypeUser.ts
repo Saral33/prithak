@@ -37,3 +37,13 @@ export interface IRegisterRes {
   status: string;
   message: string;
 }
+
+export interface IAdminRes {
+  status: string;
+  data: IAdminData;
+}
+
+export interface IAdminData {
+  userCount: number;
+  taskCount: number;
+}

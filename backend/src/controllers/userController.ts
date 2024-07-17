@@ -113,5 +113,14 @@ export class UserController {
     }
   }
 
-  public async admin(req: Request, res: Response) {}
+  public async admin(req: Request, res: Response) {
+    const { userCount, taskCount } = await UserRepositoryInstance.GetCounts();
+    res.status(200).json({
+      status: 'success',
+      data: {
+        userCount,
+        taskCount,
+      },
+    });
+  }
 }

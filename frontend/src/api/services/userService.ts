@@ -1,5 +1,10 @@
 import { privateAxios, publicAxios } from '@/config/axiosConfig';
-import { ILoginRes, IProfileRes, IRegisterRes } from '@/types/ITypeUser';
+import {
+  IAdminRes,
+  ILoginRes,
+  IProfileRes,
+  IRegisterRes,
+} from '@/types/ITypeUser';
 import { AxiosResponse } from 'axios';
 
 export const loginService = async (
@@ -34,5 +39,12 @@ export const getProfileService = async (): Promise<
 
 export const logoutService = async () => {
   const res = await privateAxios.post('/auth/logout');
+  return res;
+};
+
+export const getAdminDataService = async (): Promise<
+  AxiosResponse<IAdminRes>
+> => {
+  const res = await privateAxios.get<IAdminRes>('/auth/admin');
   return res;
 };

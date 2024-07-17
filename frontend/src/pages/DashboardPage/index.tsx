@@ -80,14 +80,14 @@ const DashboardPage = () => {
   return (
     <div className="w-full p-8">
       <div className="max-w-[1100px] w-full mx-auto">
-        <h1 className="text-4xl">Your Task Lists</h1>
+        <h1 className="md:text-4xl">Your Task Lists</h1>
         <div className="mt-10">
           <SeacrhBar value={value} setValue={setValue} />
           {!isSearch && (
-            <div className="flex gap-5 mt-4">
+            <div className="flex w-full flex-wrap gap-5 mt-4">
               <Select
                 label="Perpage"
-                className="w-[150px]"
+                className=" w-full  md:w-[150px]"
                 name="perpage"
                 value={perPage.toString()}
                 setValue={setPerpage}
@@ -97,7 +97,7 @@ const DashboardPage = () => {
               <Select
                 setValue={setSortBy}
                 label="Sort By"
-                className="w-[200px]"
+                className=" w-full md:w-[200px]"
                 name="sort"
                 data={sortExp}
                 useControlled={true}
@@ -106,7 +106,7 @@ const DashboardPage = () => {
             </div>
           )}
 
-          <div className="grid grid-cols-3 mt-8 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-8 gap-5">
             {isLoading || isLoadingSearch ? (
               <div>loading....</div>
             ) : isError ? (

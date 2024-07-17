@@ -21,6 +21,28 @@ const authRoutes = [
     path: '/dashboard',
     component: React.lazy(() => import('@/pages/DashboardPage/index')),
     name: 'DashboardPage',
+    role: ['user'],
+  },
+  {
+    id: '4',
+    path: '/admin',
+    component: React.lazy(() => import('@/pages/DashboardPage/Admin')),
+    name: 'AdminPage',
+    role: ['admin'],
+  },
+  {
+    id: '5',
+    path: '/create-task',
+    component: React.lazy(() => import('@/pages/TaskPage/CreateTask')),
+    name: 'CreateTask',
+    role: ['user'],
+  },
+  {
+    id: '6',
+    path: '/edit-task/:id',
+    component: React.lazy(() => import('@/pages/TaskPage/CreateTask')),
+    name: 'EditTask',
+    role: ['user'],
   },
 ];
 

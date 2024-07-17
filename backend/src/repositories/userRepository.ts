@@ -1,6 +1,7 @@
 import { IUserInterface } from '@/interfaces/user.interface';
 import { BadRequestError } from '@/middleware/errorMiddleware';
 import { AuthNodal } from '@/model/authModel';
+import { TaskModal } from '@/model/taskModal';
 import { UserModel } from '@/model/userModel';
 import Utils from '@/utils/globalUtils';
 
@@ -82,10 +83,8 @@ class UserRepository {
   }
 
   public async Logout(userId: string) {
-    const user = await AuthNodal.findOne({ userId });
+    const user = await AuthNodal.findOneAndDelete({ userId });
     if (user) {
-      user.refreshToken = '';
-      await user.save();
       return user;
     } else {
       throw new BadRequestError('User not found');
@@ -101,6 +100,12 @@ class UserRepository {
     } else {
       throw new BadRequestError('User not found');
     }
+  }
+
+  public async GetCounts() {
+    const userCount = await UserModel.countDocuments();
+    const taskCount = await TaskModal.countDocuments();
+    return { userCount, taskCount };
   }
 }
 

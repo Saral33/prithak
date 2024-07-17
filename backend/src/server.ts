@@ -7,6 +7,7 @@ import 'express-async-errors';
 import { StatusCodes } from 'http-status-codes';
 import { CustomError, IErrorResponse } from './middleware/errorMiddleware';
 import { rateLimit } from 'express-rate-limit';
+import { startElasticSearch } from '@/settings/elasticSearchSettings';
 
 // const limiter = rateLimit({
 //   windowMs: 15 * 60 * 1000,
@@ -60,6 +61,7 @@ class Server {
 
   public connectDb() {
     connectDB();
+    startElasticSearch();
   }
 }
 

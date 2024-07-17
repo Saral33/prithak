@@ -20,9 +20,19 @@ class TaskRepository {
     return newTask;
   }
 
-  public async getAll(userId: string) {
-    const task = await TaskModal.find({ userId });
-    return task;
+  public async getAll(
+    userId: string,
+    limit: number = 10,
+    page = 1,
+    sortBy: string = '1'
+  ) {
+    const task = await TaskModal.find({ userId })
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .sort({ deadline: sortBy === '-1' ? -1 : 1 });
+    const total = await TaskModal.countDocuments(task);
+    const totalPages = Math.ceil(total / limit);
+    return { task, total, totalPages };
   }
 
   public async deleteOne(id: string, userId: string) {
@@ -45,6 +55,15 @@ class TaskRepository {
       throw new BadRequestError('Could not find task with that id');
     }
     return res;
+  }
+
+  public async getById(id: string, userId: string) {
+    const res = await TaskModal.findOne({ _id: id, userId });
+    if (res) {
+      return res;
+    } else {
+      throw new BadRequestError('Could not find task with that id');
+    }
   }
 }
 

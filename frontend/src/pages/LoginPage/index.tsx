@@ -1,6 +1,6 @@
 import Button from '@/components/Button';
 import CustomInput from '@/components/Input';
-import { IInputLoginFields } from '@/types/ITypeLogin';
+import { IInputLoginFields } from '@/types/ITypeUser';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -80,7 +80,11 @@ const LoginPage = () => {
               name="password"
             />
 
-            <Button type="submit" className="w-full">
+            <Button
+              loading={mutation?.isLoading}
+              type="submit"
+              className="w-full"
+            >
               Login
             </Button>
           </form>

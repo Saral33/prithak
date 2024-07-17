@@ -1,4 +1,5 @@
 import { getProfileService } from '@/api/services/userService';
+import Layout from '@/components/Layout';
 import useAuth from '@/hooks/useAuth';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
@@ -14,12 +15,12 @@ const PrivateRoutes = () => {
     }
   }, [auth, navigate]);
 
-  const { data, isLoading } = useQuery({
+  const { isLoading } = useQuery({
     queryKey: 'private',
     queryFn: () => getProfileService(),
   });
 
-  return <div>{isLoading ? <div>Loading...</div> : <Outlet />}</div>;
+  return <Layout>{isLoading ? <div>Loading...</div> : <Outlet />}</Layout>;
 };
 
 export default PrivateRoutes;

@@ -112,4 +112,6 @@ export class UserController {
       });
     }
   }
+
+  public async admin(req: Request, res: Response) {}
 }

@@ -32,3 +32,8 @@ export interface IProfileRes {
     role: string;
   };
 }
+
+export interface IRegisterRes {
+  status: string;
+  message: string;
+}

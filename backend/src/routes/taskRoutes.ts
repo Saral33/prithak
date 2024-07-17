@@ -32,6 +32,17 @@ class TaskRoutes {
       checkAuthMiddleware,
       TaskController.prototype.updateTask
     );
+    this.router.get(
+      '/:id',
+      checkAuthMiddleware,
+      TaskController.prototype.getTaskDetail
+    );
+
+    this.router.get(
+      '/search/:q',
+      checkAuthMiddleware,
+      TaskController.prototype.searchTask
+    );
     return this.router;
   }
 }
